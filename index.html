@@ -4,55 +4,70 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Bil-appen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #eef1f5; --card: #ffffff; --ink: #1c2433; --muted: #5d6778; --line: #d9dee6;
-    --accent: #5b2a86; --accent-ink: #ffffff; --ok: #1f7a4d; --soon: #b36b00; --late: #b3261e;
+    --ink: #2a1a3a; --bg: #f3f5f4; --card: #ffffff; --muted: #667085; --line: #dfe4e2;
+    --teal: #0e6b66; --teal-soft: #e0f0ee; --ok: #1f7a4d; --soon: #b36b00; --late: #b3261e;
   }
   * { box-sizing: border-box; }
-  body { margin: 0; background: var(--bg); color: var(--ink); font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; line-height: 1.5; }
-  main { max-width: 640px; margin: 0 auto; padding: 20px 16px 60px; }
-  h1 { font-size: 1.6rem; margin: 8px 0 4px; }
-  h2 { font-size: 1.1rem; margin: 0 0 12px; }
-  p.lead { color: var(--muted); margin: 0 0 20px; }
-  .card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 16px; margin-bottom: 16px; }
-  label { display: block; font-size: .9rem; color: var(--muted); margin: 10px 0 4px; }
-  input, select { width: 100%; padding: 10px; font-size: 1rem; border: 1px solid var(--line); border-radius: 8px; background: #fff; color: var(--ink); }
-  input:focus-visible, select:focus-visible, button:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
-  .row { display: flex; gap: 10px; }
-  .row > div { flex: 1; }
-  button { font-size: 1rem; padding: 10px 16px; border-radius: 8px; border: 0; cursor: pointer; background: var(--accent); color: var(--accent-ink); margin-top: 14px; }
-  button.ghost { background: transparent; color: var(--muted); border: 1px solid var(--line); margin: 0; padding: 4px 10px; font-size: .85rem; }
-  button.link { background: none; color: var(--accent); padding: 0; margin: 12px 0 0; text-decoration: underline; }
-  .car-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
-  .car-name { font-size: 1.3rem; font-weight: 600; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: Manrope, system-ui, -apple-system, "Segoe UI", sans-serif; line-height: 1.5; }
+  main { max-width: 560px; margin: 0 auto; padding: 16px 16px 96px; }
+  h1 { font-size: 1.9rem; font-weight: 800; margin: 24px 0 6px; letter-spacing: -.02em; }
+  h2 { font-size: 1.05rem; font-weight: 800; margin: 24px 0 10px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 16px; margin-bottom: 14px; }
   .muted { color: var(--muted); font-size: .9rem; }
-  .topbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 16px; }
-  .item { display: flex; justify-content: space-between; gap: 12px; padding: 12px 0; border-top: 1px solid var(--line); }
-  .item:first-child { border-top: 0; padding-top: 0; }
-  .badge { font-size: .85rem; font-weight: 600; white-space: nowrap; padding: 2px 10px; border-radius: 99px; height: fit-content; border: 1.5px solid currentColor; }
-  .ok { color: var(--ok); } .soon { color: var(--soon); } .late { color: var(--late); } .none { color: var(--muted); }
-  .empty { color: var(--muted); margin: 0; }
-  .msg { padding: 10px 12px; border-radius: 8px; margin-bottom: 16px; background: #fdecea; color: var(--late); border: 1px solid #f3c4bf; }
-  .msg.info { background: #e8f3ec; color: var(--ok); border-color: #b9dcc6; }
+  label { display: block; font-size: .85rem; font-weight: 600; margin: 12px 0 4px; }
+  input, select { width: 100%; padding: 11px 12px; font: inherit; border: 1px solid var(--line); border-radius: 10px; background: #fff; color: var(--ink); }
+  input:focus-visible, select:focus-visible, button:focus-visible { outline: 3px solid var(--teal); outline-offset: 2px; }
+  .row { display: flex; gap: 10px; }
+  .row > div { flex: 1; min-width: 0; }
+  button { font: inherit; font-weight: 600; padding: 11px 18px; border-radius: 10px; border: 0; cursor: pointer; background: var(--teal); color: #fff; margin-top: 16px; }
+  button.ghost { background: transparent; color: var(--ink); border: 1px solid var(--line); margin: 0; padding: 5px 12px; font-size: .85rem; }
+  button.link { background: none; color: var(--teal); padding: 0; margin: 14px 0 0; text-decoration: underline; }
+
+  /* Hovedelement: bilen med regnr-skilt */
+  .hero { background: var(--ink); color: #fff; border-radius: 22px; padding: 22px 20px; margin-bottom: 8px; }
+  .hero .hei { opacity: .7; font-size: .9rem; }
+  .hero .bil { font-size: 1.7rem; font-weight: 800; letter-spacing: -.02em; margin: 2px 0 14px; }
+  .plate { display: inline-flex; align-items: stretch; background: #fff; color: #111; border: 2px solid #111; border-radius: 7px; overflow: hidden; font-weight: 800; }
+  .plate .n { background: #003399; color: #fff; font-size: .8rem; padding: 6px 7px; display: flex; align-items: flex-end; }
+  .plate .nr { font-size: 1.6rem; letter-spacing: .08em; padding: 2px 14px; }
+  .plate.tom { opacity: .85; cursor: pointer; }
+  .hero form { margin-top: 16px; }
+  .hero label { color: #fff; opacity: .75; font-weight: 400; margin-top: 0; }
+  .hero input { background: rgba(255,255,255,.1); border-color: rgba(255,255,255,.25); color: #fff; }
+  .hero button { background: #fff; color: var(--ink); margin-top: 0; }
+  .hero .row { align-items: flex-end; }
+
+  .status { display: flex; justify-content: space-between; gap: 12px; align-items: center; background: var(--card); border: 1px solid var(--line); border-left: 6px solid var(--muted); border-radius: 12px; padding: 12px 14px; margin-bottom: 10px; }
+  .status.ok { border-left-color: var(--ok); } .status.soon { border-left-color: var(--soon); } .status.late { border-left-color: var(--late); }
+  .status b { display: block; }
+  .tag { font-size: .8rem; font-weight: 800; white-space: nowrap; }
+  .ok .tag { color: var(--ok); } .soon .tag { color: var(--soon); } .late .tag { color: var(--late); } .none .tag { color: var(--muted); }
+
+  .hist { display: flex; justify-content: space-between; gap: 10px; padding: 12px 0; border-top: 1px solid var(--line); }
+  .hist:first-of-type { border-top: 0; }
+  .msg { padding: 11px 14px; border-radius: 10px; margin-bottom: 14px; background: #fdecea; color: var(--late); border: 1px solid #f3c4bf; }
+  .msg.info { background: var(--teal-soft); color: var(--teal); border-color: #b5d8d4; }
+
+  nav { position: fixed; bottom: 0; left: 0; right: 0; background: #fff; border-top: 1px solid var(--line); display: flex; justify-content: center; padding-bottom: env(safe-area-inset-bottom, 0); }
+  nav .inner { display: flex; width: 100%; max-width: 560px; }
+  nav button { flex: 1; margin: 0; border-radius: 0; background: none; color: var(--muted); padding: 14px 0 12px; border-top: 3px solid transparent; }
+  nav button.aktiv { color: var(--ink); border-top-color: var(--teal); font-weight: 800; }
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.58.0/dist/umd/supabase.min.js"></script>
 </head>
 <body>
-<main>
-  <h1>Bil-appen</h1>
-  <p class="lead">Hold oversikt over bilen din og få beskjed om hva som snart må gjøres.</p>
-  <div id="app">Laster …</div>
-</main>
+<main id="app">Laster …</main>
 
 <script>
-// ---- Supabase-oppsett ----
-// Publishable key er laget for å ligge her i koden. Hemmelige nøkler (secret / service_role) skal ALDRI stå her.
+// Publishable key er laget for å ligge her. Hemmelige nøkler skal ALDRI stå i denne filen.
 const SUPABASE_URL = "https://ibefhxqtqgphmxrssrxl.supabase.co";
 const SUPABASE_KEY = "sb_publishable_vYsGkofK2YWoKwvMoIVHqA_EcAOHiNW";
 const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-// ---- Hva appen holder styr på ----
 const TYPER = {
   olje:    { navn: "Service / oljeskift", km: 15000, mnd: 12 },
   eu:      { navn: "EU-kontroll",         km: 0,     mnd: 24 },
@@ -61,59 +76,53 @@ const TYPER = {
   annet:   { navn: "Annet",               km: 0,     mnd: 0  }
 };
 
-let state = { user: null, bil: null, logg: [], redigerer: false, modus: "inn", melding: null };
+let state = { user: null, bil: null, logg: [], fane: "oversikt", modus: "inn", melding: null };
 
-// ---- Hjelpefunksjoner ----
-function esc(s) {
-  return String(s == null ? "" : s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
-}
+function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c])); }
 function tall(n) { return Number(n).toLocaleString("nb-NO"); }
 function idag() { return new Date().toISOString().slice(0, 10); }
 function datoNorsk(iso) { return new Date(iso).toLocaleDateString("nb-NO", { day: "numeric", month: "short", year: "numeric" }); }
 function leggTilMnd(iso, m) { const d = new Date(iso); d.setMonth(d.getMonth() + m); return d; }
-function dagerTil(dato) { return Math.round((dato - new Date()) / 86400000); }
-function feil(tekst) { state.melding = { tekst, type: "feil" }; }
-function info(tekst) { state.melding = { tekst, type: "info" }; }
+function dagerTil(d) { return Math.round((d - new Date()) / 86400000); }
+function feil(t) { state.melding = { t, type: "feil" }; }
+function info(t) { state.melding = { t, type: "info" }; }
+function regnrFormat(r) { return String(r).replace(/^([A-Z]{2})(\d+)$/, "$1 $2"); }
+function navn() { return (state.user.user_metadata && state.user.user_metadata.navn) || ""; }
 
-// ---- Status for en type ----
 function status(nokkel) {
   const t = TYPER[nokkel];
   const siste = state.logg.filter(l => l.type === nokkel).sort((a, b) => b.dato.localeCompare(a.dato))[0];
-  if (!siste) return { nivaa: "none", tekst: "Ikke registrert", detalj: "Legg inn forrige gang under «Registrer».", rang: 5 };
+  if (!siste) return { nivaa: "none", tekst: "Ikke registrert", detalj: "Legg inn forrige gang under Logg.", rang: 5 };
   let nivaa = "ok", deler = [], rang = 4;
   if (t.mnd) {
-    const neste = leggTilMnd(siste.dato, t.mnd);
-    const d = dagerTil(neste);
+    const neste = leggTilMnd(siste.dato, t.mnd), d = dagerTil(neste);
     deler.push("innen " + datoNorsk(neste.toISOString().slice(0, 10)));
-    if (d < 0) { nivaa = "late"; rang = 0; }
-    else if (d <= 30) { nivaa = "soon"; rang = Math.min(rang, 2); }
+    if (d < 0) { nivaa = "late"; rang = 0; } else if (d <= 30) { nivaa = "soon"; rang = 2; }
   }
   if (t.km && siste.km) {
-    const nesteKm = Number(siste.km) + t.km;
-    const igjen = nesteKm - state.bil.km;
+    const nesteKm = Number(siste.km) + t.km, igjen = nesteKm - state.bil.km;
     deler.push("ved " + tall(nesteKm) + " km");
-    if (igjen < 0) { nivaa = "late"; rang = 0; }
-    else if (igjen <= 1000 && nivaa !== "late") { nivaa = "soon"; rang = Math.min(rang, 2); }
+    if (igjen < 0) { nivaa = "late"; rang = 0; } else if (igjen <= 1000 && nivaa !== "late") { nivaa = "soon"; rang = Math.min(rang, 2); }
   }
-  const tekst = { ok: "I orden", soon: "Snart", late: "Over tid" }[nivaa];
-  return { nivaa, tekst, detalj: "Sist " + datoNorsk(siste.dato) + ". Neste: " + deler.join(" eller ") + ".", rang };
+  return { nivaa, tekst: { ok: "I orden", soon: "Snart", late: "Over tid" }[nivaa], detalj: "Sist " + datoNorsk(siste.dato) + ". Neste: " + deler.join(" eller ") + ".", rang };
 }
 
 // ---- Visninger ----
 function meldingHtml() {
   if (!state.melding) return "";
   const m = state.melding; state.melding = null;
-  return `<div class="msg ${m.type === "info" ? "info" : ""}" role="alert">${esc(m.tekst)}</div>`;
+  return `<div class="msg ${m.type === "info" ? "info" : ""}" role="alert">${esc(m.t)}</div>`;
 }
 
 function visInnlogging() {
   const ny = state.modus === "ny";
   return `
+  <h1>Bil-appen</h1>
+  <p class="muted" style="margin:0 0 20px">Forstå bilen din. Vit hva som må gjøres, og når.</p>
   <div class="card">
-    <h2>${ny ? "Opprett konto" : "Logg inn"}</h2>
+    <h2 style="margin-top:0">${ny ? "Opprett konto" : "Logg inn"}</h2>
     <form id="authform">
-      <label for="epost">E-post</label>
-      <input id="epost" type="email" autocomplete="email" required>
+      <label for="epost">E-post</label><input id="epost" type="email" autocomplete="email" required>
       <label for="passord">Passord${ny ? " (minst 8 tegn)" : ""}</label>
       <input id="passord" type="password" minlength="${ny ? 8 : 1}" autocomplete="${ny ? "new-password" : "current-password"}" required>
       <button type="submit">${ny ? "Opprett konto" : "Logg inn"}</button>
@@ -122,104 +131,104 @@ function visInnlogging() {
   </div>`;
 }
 
-function topplinje() {
-  return `<div class="topbar"><span class="muted">${esc(state.user.email)}</span><button class="ghost" id="loggut">Logg ut</button></div>`;
-}
-
-function visOppsett() {
-  const b = state.bil || {};
+function bilSkjema(b, tittel, knapp) {
+  b = b || {};
   return `
   <div class="card">
-    <h2>${state.bil ? "Endre bil" : "Legg inn bilen din"}</h2>
+    <h2 style="margin-top:0">${tittel}</h2>
     <form id="bilform">
       <div class="row">
         <div><label for="merke">Merke</label><input id="merke" required placeholder="Toyota" value="${esc(b.merke)}"></div>
         <div><label for="modell">Modell</label><input id="modell" required placeholder="Yaris" value="${esc(b.modell)}"></div>
       </div>
       <div class="row">
-        <div><label for="aar">Årsmodell</label><input id="aar" type="number" min="1950" max="2100" required placeholder="2016" value="${esc(b.aar)}"></div>
-        <div><label for="km">Kilometerstand</label><input id="km" type="number" min="0" required placeholder="85000" value="${esc(b.km)}"></div>
+        <div><label for="aar">Årsmodell</label><input id="aar" type="number" min="1950" max="2100" required value="${esc(b.aar)}"></div>
+        <div><label for="km">Kilometerstand</label><input id="km" type="number" min="0" required value="${esc(b.km)}"></div>
       </div>
-      <label for="regnr">Registreringsnummer (valgfritt)</label>
+      <label for="regnr">Registreringsnummer</label>
       <input id="regnr" placeholder="AB12345" maxlength="8" value="${esc(b.regnr)}">
-      <button type="submit">Lagre bil</button>
-      ${state.bil ? `<button type="button" class="ghost" id="avbryt" style="margin-left:8px">Avbryt</button>` : ""}
+      <button type="submit">${knapp}</button>
     </form>
   </div>`;
 }
 
-function visHoved() {
+function visOversikt() {
   const b = state.bil;
+  const plate = b.regnr
+    ? `<div class="plate"><span class="n">N</span><span class="nr">${esc(regnrFormat(b.regnr))}</span></div>`
+    : `<div class="plate tom" id="leggregnr"><span class="n">N</span><span class="nr" style="font-size:1rem">Legg til regnr</span></div>`;
   const lista = ["olje", "eu", "dekk", "bremser"].map(n => ({ n, s: status(n) })).sort((a, c) => a.s.rang - c.s.rang);
-  const statusHtml = lista.map(({ n, s }) => `
-    <div class="item">
-      <div><strong>${esc(TYPER[n].navn)}</strong><br><span class="muted">${esc(s.detalj)}</span></div>
-      <span class="badge ${s.nivaa}">${s.tekst}</span>
-    </div>`).join("");
-  const opts = Object.keys(TYPER).map(k => `<option value="${k}">${esc(TYPER[k].navn)}</option>`).join("");
-  const historikk = state.logg.length
-    ? [...state.logg].sort((a, c) => c.dato.localeCompare(a.dato)).map(l => `
-      <div class="item">
-        <div><strong>${esc(TYPER[l.type] ? TYPER[l.type].navn : l.type)}</strong><br>
-          <span class="muted">${datoNorsk(l.dato)}${l.km ? " · " + tall(l.km) + " km" : ""}${l.notat ? " · " + esc(l.notat) : ""}</span></div>
-        <button class="ghost" data-slett="${l.id}" aria-label="Slett denne oppføringen">Slett</button>
-      </div>`).join("")
-    : `<p class="empty">Ingenting registrert ennå.</p>`;
-
   return `
-  <div class="card">
-    <div class="car-head">
-      <div>
-        <div class="car-name">${esc(b.merke)} ${esc(b.modell)}</div>
-        <div class="muted">${esc(b.aar)} · ${tall(b.km)} km${b.regnr ? " · " + esc(b.regnr) : ""}</div>
-      </div>
-      <button class="ghost" id="endrebil">Endre bil</button>
-    </div>
+  <div class="hero">
+    <div class="hei">Hei${navn() ? ", " + esc(navn()) : ""}</div>
+    <div class="bil">${esc(b.merke)} ${esc(b.modell)} <span style="font-weight:400;opacity:.7;font-size:1rem">${esc(b.aar)}</span></div>
+    ${plate}
     <form id="kmform">
-      <label for="nykm">Oppdater kilometerstand</label>
       <div class="row">
-        <div><input id="nykm" type="number" min="0" value="${esc(b.km)}"></div>
-        <div><button type="submit" style="margin-top:0">Oppdater</button></div>
+        <div><label for="nykm">Kilometerstand</label><input id="nykm" type="number" min="0" value="${esc(b.km)}"></div>
+        <div style="flex:0"><button type="submit">Oppdater</button></div>
       </div>
     </form>
   </div>
+  <h2>Hva må gjøres</h2>
+  ${lista.map(({ n, s }) => `
+    <div class="status ${s.nivaa}"><div><b>${esc(TYPER[n].navn)}</b><span class="muted">${esc(s.detalj)}</span></div><span class="tag">${s.tekst}</span></div>`).join("")}
+  <p class="muted">Intervallene er generelle forslag. Sjekk alltid servicehefte eller bilens egen plan.</p>`;
+}
 
+function visLogg() {
+  const opts = Object.keys(TYPER).map(k => `<option value="${k}">${esc(TYPER[k].navn)}</option>`).join("");
+  const hist = state.logg.length
+    ? [...state.logg].sort((a, c) => c.dato.localeCompare(a.dato)).map(l => `
+      <div class="hist"><div><b>${esc(TYPER[l.type] ? TYPER[l.type].navn : l.type)}</b><br>
+        <span class="muted">${datoNorsk(l.dato)}${l.km ? " · " + tall(l.km) + " km" : ""}${l.notat ? " · " + esc(l.notat) : ""}</span></div>
+        <button class="ghost" data-slett="${l.id}" aria-label="Slett oppføringen">Slett</button></div>`).join("")
+    : `<p class="muted" style="margin:0">Ingenting registrert ennå. Legg inn det som er gjort på bilen, så beregner appen hva som kommer.</p>`;
+  return `
+  <h2 style="margin-top:8px">Registrer noe som er gjort</h2>
   <div class="card">
-    <h2>Hva må gjøres</h2>
-    ${statusHtml}
-    <p class="muted" style="margin:12px 0 0">Intervallene er generelle forslag. Sjekk alltid servicehefte eller bilens egen plan.</p>
-  </div>
-
-  <div class="card">
-    <h2>Registrer noe som er gjort</h2>
     <form id="loggform">
-      <label for="type">Hva ble gjort?</label>
-      <select id="type">${opts}</select>
+      <label for="type">Hva ble gjort?</label><select id="type">${opts}</select>
       <div class="row">
         <div><label for="dato">Dato</label><input id="dato" type="date" value="${idag()}" max="${idag()}" required></div>
-        <div><label for="lkm">Kilometerstand</label><input id="lkm" type="number" min="0" value="${esc(b.km)}"></div>
+        <div><label for="lkm">Kilometerstand</label><input id="lkm" type="number" min="0" value="${esc(state.bil.km)}"></div>
       </div>
-      <label for="notat">Notat (valgfritt)</label>
-      <input id="notat" placeholder="Verksted, pris, hva som ble byttet">
+      <label for="notat">Notat (valgfritt)</label><input id="notat" placeholder="Verksted, pris, hva som ble byttet">
       <button type="submit">Lagre</button>
     </form>
   </div>
+  <h2>Historikk</h2>
+  <div class="card">${hist}</div>`;
+}
 
+function visProfil() {
+  return `
+  <h2 style="margin-top:8px">Profil</h2>
   <div class="card">
-    <h2>Historikk</h2>
-    ${historikk}
-  </div>`;
+    <form id="navnform">
+      <label for="navn">Navn</label><input id="navn" value="${esc(navn())}" placeholder="Hva skal vi kalle deg?">
+      <label>E-post</label><div class="muted">${esc(state.user.email)}</div>
+      <button type="submit">Lagre navn</button>
+    </form>
+  </div>
+  ${bilSkjema(state.bil, "Din bil", "Lagre bil")}
+  <button class="ghost" id="loggut" style="margin-top:8px">Logg ut</button>`;
+}
+
+function visNav() {
+  const f = (k, t) => `<button class="${state.fane === k ? "aktiv" : ""}" data-fane="${k}">${t}</button>`;
+  return `<nav><div class="inner">${f("oversikt", "Oversikt")}${f("logg", "Logg")}${f("profil", "Profil")}</div></nav>`;
 }
 
 function tegn() {
   let html = meldingHtml();
   if (!state.user) html += visInnlogging();
-  else html += topplinje() + ((!state.bil || state.redigerer) ? visOppsett() : visHoved());
+  else if (!state.bil) html += `<h1>Velkommen${navn() ? ", " + esc(navn()) : ""}</h1><p class="muted" style="margin:0 0 16px">Legg inn bilen din, så husker appen den neste gang du logger inn.</p>` + bilSkjema(null, "Din bil", "Lagre bil") + `<button class="ghost" id="loggut">Logg ut</button>`;
+  else html += { oversikt: visOversikt, logg: visLogg, profil: visProfil }[state.fane]() + visNav();
   document.getElementById("app").innerHTML = html;
   koble();
 }
 
-// ---- Henting av data ----
 async function start() {
   const { data } = await sb.auth.getSession();
   state.user = data.session ? data.session.user : null;
@@ -228,16 +237,15 @@ async function start() {
     const b = await sb.from("bil").select("*").maybeSingle();
     const l = await sb.from("logg").select("*").order("dato", { ascending: false });
     if (b.error || l.error) feil("Kunne ikke hente dataene dine. Prøv å laste siden på nytt.");
-    state.bil = b.data || null;
-    state.logg = l.data || [];
+    state.bil = b.data || null; state.logg = l.data || [];
   }
   tegn();
 }
 
-// ---- Knapper og skjemaer ----
 function koble() {
   const $ = id => document.getElementById(id);
-
+  document.querySelectorAll("[data-fane]").forEach(b => b.onclick = () => { state.fane = b.dataset.fane; tegn(); window.scrollTo(0, 0); });
+  if ($("leggregnr")) $("leggregnr").onclick = () => { state.fane = "profil"; tegn(); };
   if ($("bytt")) $("bytt").onclick = () => { state.modus = state.modus === "inn" ? "ny" : "inn"; tegn(); };
 
   if ($("authform")) $("authform").onsubmit = async e => {
@@ -246,33 +254,30 @@ function koble() {
     if (state.modus === "ny") {
       const { data, error } = await sb.auth.signUp({ email: epost, password: passord, options: { emailRedirectTo: location.origin } });
       if (error) { feil(error.message); return tegn(); }
-      if (!data.session) { info("Konto opprettet. Sjekk e-posten din og trykk på bekreftelseslenken, og logg deretter inn her."); state.modus = "inn"; return tegn(); }
+      if (!data.session) { info("Konto opprettet. Trykk på bekreftelseslenken i e-posten din, og logg deretter inn her."); state.modus = "inn"; return tegn(); }
       return start();
     }
     const { error } = await sb.auth.signInWithPassword({ email: epost, password: passord });
     if (error) { feil("Kunne ikke logge inn. Sjekk e-post og passord, og at du har bekreftet e-posten din."); return tegn(); }
     start();
   };
+  if ($("loggut")) $("loggut").onclick = async () => { await sb.auth.signOut(); state.fane = "oversikt"; start(); };
 
-  if ($("loggut")) $("loggut").onclick = async () => { await sb.auth.signOut(); state.redigerer = false; start(); };
+  if ($("navnform")) $("navnform").onsubmit = async e => {
+    e.preventDefault();
+    const { error } = await sb.auth.updateUser({ data: { navn: $("navn").value.trim() } });
+    if (error) feil("Kunne ikke lagre navnet."); else info("Navnet er lagret.");
+    start();
+  };
 
   if ($("bilform")) $("bilform").onsubmit = async e => {
     e.preventDefault();
-    const rad = {
-      user_id: state.user.id,
-      merke: $("merke").value.trim(),
-      modell: $("modell").value.trim(),
-      aar: $("aar").value,
-      km: Number($("km").value),
-      regnr: $("regnr").value.trim().toUpperCase() || null
-    };
+    const rad = { user_id: state.user.id, merke: $("merke").value.trim(), modell: $("modell").value.trim(), aar: $("aar").value, km: Number($("km").value), regnr: $("regnr").value.replace(/\s/g, "").toUpperCase() || null };
     const { error } = await sb.from("bil").upsert(rad);
     if (error) { feil("Kunne ikke lagre bilen. Prøv igjen."); return tegn(); }
-    state.redigerer = false;
+    info("Bilen er lagret.");
     start();
   };
-  if ($("avbryt")) $("avbryt").onclick = () => { state.redigerer = false; tegn(); };
-  if ($("endrebil")) $("endrebil").onclick = () => { state.redigerer = true; tegn(); };
 
   if ($("kmform")) $("kmform").onsubmit = async e => {
     e.preventDefault();
@@ -284,21 +289,18 @@ function koble() {
   if ($("loggform")) $("loggform").onsubmit = async e => {
     e.preventDefault();
     const km = $("lkm").value ? Number($("lkm").value) : 0;
-    const { error } = await sb.from("logg").insert({
-      type: $("type").value, dato: $("dato").value, km: km, notat: $("notat").value.trim() || null
-    });
+    const { error } = await sb.from("logg").insert({ type: $("type").value, dato: $("dato").value, km, notat: $("notat").value.trim() || null });
     if (error) { feil("Kunne ikke lagre oppføringen. Prøv igjen."); return tegn(); }
     if (km > state.bil.km) await sb.from("bil").update({ km }).eq("user_id", state.user.id);
+    info("Lagret.");
     start();
   };
 
-  document.querySelectorAll("[data-slett]").forEach(btn => {
-    btn.onclick = async () => {
-      if (!confirm("Slette denne oppføringen?")) return;
-      const { error } = await sb.from("logg").delete().eq("id", Number(btn.dataset.slett));
-      if (error) feil("Kunne ikke slette oppføringen.");
-      start();
-    };
+  document.querySelectorAll("[data-slett]").forEach(btn => btn.onclick = async () => {
+    if (!confirm("Slette denne oppføringen?")) return;
+    const { error } = await sb.from("logg").delete().eq("id", Number(btn.dataset.slett));
+    if (error) feil("Kunne ikke slette oppføringen.");
+    start();
   });
 }
 
