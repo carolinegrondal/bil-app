@@ -6,108 +6,53 @@
 <title>Bil-appen</title>
 <style>
   :root {
-    --bg: #eef1f5;
-    --card: #ffffff;
-    --ink: #1c2433;
-    --muted: #5d6778;
-    --line: #d9dee6;
-    --accent: #5b2a86;
-    --accent-ink: #ffffff;
-    --ok: #1f7a4d;
-    --soon: #b36b00;
-    --late: #b3261e;
+    --bg: #eef1f5; --card: #ffffff; --ink: #1c2433; --muted: #5d6778; --line: #d9dee6;
+    --accent: #5b2a86; --accent-ink: #ffffff; --ok: #1f7a4d; --soon: #b36b00; --late: #b3261e;
   }
   * { box-sizing: border-box; }
-  body {
-    margin: 0;
-    background: var(--bg);
-    color: var(--ink);
-    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-    line-height: 1.5;
-  }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; line-height: 1.5; }
   main { max-width: 640px; margin: 0 auto; padding: 20px 16px 60px; }
   h1 { font-size: 1.6rem; margin: 8px 0 4px; }
   h2 { font-size: 1.1rem; margin: 0 0 12px; }
   p.lead { color: var(--muted); margin: 0 0 20px; }
-  .card {
-    background: var(--card);
-    border: 1px solid var(--line);
-    border-radius: 12px;
-    padding: 16px;
-    margin-bottom: 16px;
-  }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 16px; margin-bottom: 16px; }
   label { display: block; font-size: .9rem; color: var(--muted); margin: 10px 0 4px; }
-  input, select {
-    width: 100%;
-    padding: 10px;
-    font-size: 1rem;
-    border: 1px solid var(--line);
-    border-radius: 8px;
-    background: #fff;
-    color: var(--ink);
-  }
-  input:focus-visible, select:focus-visible, button:focus-visible {
-    outline: 3px solid var(--accent);
-    outline-offset: 2px;
-  }
+  input, select { width: 100%; padding: 10px; font-size: 1rem; border: 1px solid var(--line); border-radius: 8px; background: #fff; color: var(--ink); }
+  input:focus-visible, select:focus-visible, button:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
   .row { display: flex; gap: 10px; }
   .row > div { flex: 1; }
-  button {
-    font-size: 1rem;
-    padding: 10px 16px;
-    border-radius: 8px;
-    border: 0;
-    cursor: pointer;
-    background: var(--accent);
-    color: var(--accent-ink);
-    margin-top: 14px;
-  }
-  button.ghost {
-    background: transparent;
-    color: var(--muted);
-    border: 1px solid var(--line);
-    margin: 0;
-    padding: 4px 10px;
-    font-size: .85rem;
-  }
+  button { font-size: 1rem; padding: 10px 16px; border-radius: 8px; border: 0; cursor: pointer; background: var(--accent); color: var(--accent-ink); margin-top: 14px; }
+  button.ghost { background: transparent; color: var(--muted); border: 1px solid var(--line); margin: 0; padding: 4px 10px; font-size: .85rem; }
+  button.link { background: none; color: var(--accent); padding: 0; margin: 12px 0 0; text-decoration: underline; }
   .car-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
   .car-name { font-size: 1.3rem; font-weight: 600; }
   .muted { color: var(--muted); font-size: .9rem; }
-  .item {
-    display: flex;
-    justify-content: space-between;
-    gap: 12px;
-    padding: 12px 0;
-    border-top: 1px solid var(--line);
-  }
+  .topbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 16px; }
+  .item { display: flex; justify-content: space-between; gap: 12px; padding: 12px 0; border-top: 1px solid var(--line); }
   .item:first-child { border-top: 0; padding-top: 0; }
-  .badge {
-    font-size: .85rem;
-    font-weight: 600;
-    white-space: nowrap;
-    padding: 2px 10px;
-    border-radius: 99px;
-    height: fit-content;
-    border: 1.5px solid currentColor;
-  }
-  .ok { color: var(--ok); }
-  .soon { color: var(--soon); }
-  .late { color: var(--late); }
-  .none { color: var(--muted); }
+  .badge { font-size: .85rem; font-weight: 600; white-space: nowrap; padding: 2px 10px; border-radius: 99px; height: fit-content; border: 1.5px solid currentColor; }
+  .ok { color: var(--ok); } .soon { color: var(--soon); } .late { color: var(--late); } .none { color: var(--muted); }
   .empty { color: var(--muted); margin: 0; }
+  .msg { padding: 10px 12px; border-radius: 8px; margin-bottom: 16px; background: #fdecea; color: var(--late); border: 1px solid #f3c4bf; }
+  .msg.info { background: #e8f3ec; color: var(--ok); border-color: #b9dcc6; }
 </style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.58.0/dist/umd/supabase.min.js"></script>
 </head>
 <body>
 <main>
   <h1>Bil-appen</h1>
   <p class="lead">Hold oversikt over bilen din og få beskjed om hva som snart må gjøres.</p>
-  <div id="app"></div>
+  <div id="app">Laster …</div>
 </main>
 
 <script>
+// ---- Supabase-oppsett ----
+// Publishable key er laget for å ligge her i koden. Hemmelige nøkler (secret / service_role) skal ALDRI stå her.
+const SUPABASE_URL = "https://ibefhxqtqgphmxrssrxl.supabase.co";
+const SUPABASE_KEY = "sb_publishable_vYsGkofK2YWoKwvMoIVHqA_EcAOHiNW";
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
 // ---- Hva appen holder styr på ----
-// km = hvor mange km mellom hver gang, mnd = hvor mange måneder mellom hver gang.
-// 0 betyr at den grensen ikke brukes. Tallene er forslag, ikke fasit: sjekk bilens servicehefte.
 const TYPER = {
   olje:    { navn: "Service / oljeskift", km: 15000, mnd: 12 },
   eu:      { navn: "EU-kontroll",         km: 0,     mnd: 24 },
@@ -116,48 +61,26 @@ const TYPER = {
   annet:   { navn: "Annet",               km: 0,     mnd: 0  }
 };
 
-// ---- Lagring i nettleseren ----
-const NOKKEL = "bilapp-v1";
-let state = { bil: null, logg: [] };
-
-function last() {
-  try {
-    const t = localStorage.getItem(NOKKEL);
-    if (t) state = JSON.parse(t);
-  } catch (e) { /* ingen lagring tilgjengelig, vi fortsetter uten */ }
-}
-function lagre() {
-  try { localStorage.setItem(NOKKEL, JSON.stringify(state)); } catch (e) {}
-}
+let state = { user: null, bil: null, logg: [], redigerer: false, modus: "inn", melding: null };
 
 // ---- Hjelpefunksjoner ----
 function esc(s) {
-  return String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  return String(s == null ? "" : s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 }
 function tall(n) { return Number(n).toLocaleString("nb-NO"); }
 function idag() { return new Date().toISOString().slice(0, 10); }
-function datoNorsk(iso) {
-  return new Date(iso).toLocaleDateString("nb-NO", { day: "numeric", month: "short", year: "numeric" });
-}
-function leggTilMnd(iso, m) {
-  const d = new Date(iso);
-  d.setMonth(d.getMonth() + m);
-  return d;
-}
-function dagerTil(dato) {
-  return Math.round((dato - new Date()) / 86400000);
-}
+function datoNorsk(iso) { return new Date(iso).toLocaleDateString("nb-NO", { day: "numeric", month: "short", year: "numeric" }); }
+function leggTilMnd(iso, m) { const d = new Date(iso); d.setMonth(d.getMonth() + m); return d; }
+function dagerTil(dato) { return Math.round((dato - new Date()) / 86400000); }
+function feil(tekst) { state.melding = { tekst, type: "feil" }; }
+function info(tekst) { state.melding = { tekst, type: "info" }; }
 
-// ---- Beregn status for en type ----
+// ---- Status for en type ----
 function status(nokkel) {
   const t = TYPER[nokkel];
-  const siste = state.logg
-    .filter(l => l.type === nokkel)
-    .sort((a, b) => b.dato.localeCompare(a.dato))[0];
+  const siste = state.logg.filter(l => l.type === nokkel).sort((a, b) => b.dato.localeCompare(a.dato))[0];
   if (!siste) return { nivaa: "none", tekst: "Ikke registrert", detalj: "Legg inn forrige gang under «Registrer».", rang: 5 };
-
   let nivaa = "ok", deler = [], rang = 4;
-
   if (t.mnd) {
     const neste = leggTilMnd(siste.dato, t.mnd);
     const d = dagerTil(neste);
@@ -172,53 +95,73 @@ function status(nokkel) {
     if (igjen < 0) { nivaa = "late"; rang = 0; }
     else if (igjen <= 1000 && nivaa !== "late") { nivaa = "soon"; rang = Math.min(rang, 2); }
   }
-
   const tekst = { ok: "I orden", soon: "Snart", late: "Over tid" }[nivaa];
   return { nivaa, tekst, detalj: "Sist " + datoNorsk(siste.dato) + ". Neste: " + deler.join(" eller ") + ".", rang };
 }
 
-// ---- Visning ----
-function visOppsett() {
+// ---- Visninger ----
+function meldingHtml() {
+  if (!state.melding) return "";
+  const m = state.melding; state.melding = null;
+  return `<div class="msg ${m.type === "info" ? "info" : ""}" role="alert">${esc(m.tekst)}</div>`;
+}
+
+function visInnlogging() {
+  const ny = state.modus === "ny";
   return `
   <div class="card">
-    <h2>Legg inn bilen din</h2>
+    <h2>${ny ? "Opprett konto" : "Logg inn"}</h2>
+    <form id="authform">
+      <label for="epost">E-post</label>
+      <input id="epost" type="email" autocomplete="email" required>
+      <label for="passord">Passord${ny ? " (minst 8 tegn)" : ""}</label>
+      <input id="passord" type="password" minlength="${ny ? 8 : 1}" autocomplete="${ny ? "new-password" : "current-password"}" required>
+      <button type="submit">${ny ? "Opprett konto" : "Logg inn"}</button>
+    </form>
+    <button class="link" id="bytt">${ny ? "Har du konto? Logg inn" : "Ny her? Opprett konto"}</button>
+  </div>`;
+}
+
+function topplinje() {
+  return `<div class="topbar"><span class="muted">${esc(state.user.email)}</span><button class="ghost" id="loggut">Logg ut</button></div>`;
+}
+
+function visOppsett() {
+  const b = state.bil || {};
+  return `
+  <div class="card">
+    <h2>${state.bil ? "Endre bil" : "Legg inn bilen din"}</h2>
     <form id="bilform">
       <div class="row">
-        <div><label for="merke">Merke</label><input id="merke" required placeholder="Toyota"></div>
-        <div><label for="modell">Modell</label><input id="modell" required placeholder="Yaris"></div>
+        <div><label for="merke">Merke</label><input id="merke" required placeholder="Toyota" value="${esc(b.merke)}"></div>
+        <div><label for="modell">Modell</label><input id="modell" required placeholder="Yaris" value="${esc(b.modell)}"></div>
       </div>
       <div class="row">
-        <div><label for="aar">Årsmodell</label><input id="aar" type="number" min="1950" max="2100" required placeholder="2016"></div>
-        <div><label for="km">Kilometerstand</label><input id="km" type="number" min="0" required placeholder="85000"></div>
+        <div><label for="aar">Årsmodell</label><input id="aar" type="number" min="1950" max="2100" required placeholder="2016" value="${esc(b.aar)}"></div>
+        <div><label for="km">Kilometerstand</label><input id="km" type="number" min="0" required placeholder="85000" value="${esc(b.km)}"></div>
       </div>
+      <label for="regnr">Registreringsnummer (valgfritt)</label>
+      <input id="regnr" placeholder="AB12345" maxlength="8" value="${esc(b.regnr)}">
       <button type="submit">Lagre bil</button>
+      ${state.bil ? `<button type="button" class="ghost" id="avbryt" style="margin-left:8px">Avbryt</button>` : ""}
     </form>
   </div>`;
 }
 
 function visHoved() {
   const b = state.bil;
-  const nokler = ["olje", "eu", "dekk", "bremser"];
-  const lista = nokler.map(n => ({ n, s: status(n) })).sort((a, b) => a.s.rang - b.s.rang);
-
+  const lista = ["olje", "eu", "dekk", "bremser"].map(n => ({ n, s: status(n) })).sort((a, c) => a.s.rang - c.s.rang);
   const statusHtml = lista.map(({ n, s }) => `
     <div class="item">
-      <div>
-        <strong>${esc(TYPER[n].navn)}</strong><br>
-        <span class="muted">${esc(s.detalj)}</span>
-      </div>
+      <div><strong>${esc(TYPER[n].navn)}</strong><br><span class="muted">${esc(s.detalj)}</span></div>
       <span class="badge ${s.nivaa}">${s.tekst}</span>
     </div>`).join("");
-
   const opts = Object.keys(TYPER).map(k => `<option value="${k}">${esc(TYPER[k].navn)}</option>`).join("");
-
   const historikk = state.logg.length
-    ? [...state.logg].sort((a, b) => b.dato.localeCompare(a.dato)).map(l => `
+    ? [...state.logg].sort((a, c) => c.dato.localeCompare(a.dato)).map(l => `
       <div class="item">
-        <div>
-          <strong>${esc(TYPER[l.type].navn)}</strong><br>
-          <span class="muted">${datoNorsk(l.dato)}${l.km ? " · " + tall(l.km) + " km" : ""}${l.notat ? " · " + esc(l.notat) : ""}</span>
-        </div>
+        <div><strong>${esc(TYPER[l.type] ? TYPER[l.type].navn : l.type)}</strong><br>
+          <span class="muted">${datoNorsk(l.dato)}${l.km ? " · " + tall(l.km) + " km" : ""}${l.notat ? " · " + esc(l.notat) : ""}</span></div>
         <button class="ghost" data-slett="${l.id}" aria-label="Slett denne oppføringen">Slett</button>
       </div>`).join("")
     : `<p class="empty">Ingenting registrert ennå.</p>`;
@@ -228,14 +171,14 @@ function visHoved() {
     <div class="car-head">
       <div>
         <div class="car-name">${esc(b.merke)} ${esc(b.modell)}</div>
-        <div class="muted">${esc(b.aar)} · ${tall(b.km)} km</div>
+        <div class="muted">${esc(b.aar)} · ${tall(b.km)} km${b.regnr ? " · " + esc(b.regnr) : ""}</div>
       </div>
       <button class="ghost" id="endrebil">Endre bil</button>
     </div>
     <form id="kmform">
       <label for="nykm">Oppdater kilometerstand</label>
       <div class="row">
-        <div><input id="nykm" type="number" min="0" value="${b.km}"></div>
+        <div><input id="nykm" type="number" min="0" value="${esc(b.km)}"></div>
         <div><button type="submit" style="margin-top:0">Oppdater</button></div>
       </div>
     </form>
@@ -254,7 +197,7 @@ function visHoved() {
       <select id="type">${opts}</select>
       <div class="row">
         <div><label for="dato">Dato</label><input id="dato" type="date" value="${idag()}" max="${idag()}" required></div>
-        <div><label for="lkm">Kilometerstand</label><input id="lkm" type="number" min="0" value="${b.km}"></div>
+        <div><label for="lkm">Kilometerstand</label><input id="lkm" type="number" min="0" value="${esc(b.km)}"></div>
       </div>
       <label for="notat">Notat (valgfritt)</label>
       <input id="notat" placeholder="Verksted, pris, hva som ble byttet">
@@ -269,61 +212,97 @@ function visHoved() {
 }
 
 function tegn() {
-  document.getElementById("app").innerHTML = state.bil ? visHoved() : visOppsett();
+  let html = meldingHtml();
+  if (!state.user) html += visInnlogging();
+  else html += topplinje() + ((!state.bil || state.redigerer) ? visOppsett() : visHoved());
+  document.getElementById("app").innerHTML = html;
   koble();
+}
+
+// ---- Henting av data ----
+async function start() {
+  const { data } = await sb.auth.getSession();
+  state.user = data.session ? data.session.user : null;
+  state.bil = null; state.logg = [];
+  if (state.user) {
+    const b = await sb.from("bil").select("*").maybeSingle();
+    const l = await sb.from("logg").select("*").order("dato", { ascending: false });
+    if (b.error || l.error) feil("Kunne ikke hente dataene dine. Prøv å laste siden på nytt.");
+    state.bil = b.data || null;
+    state.logg = l.data || [];
+  }
+  tegn();
 }
 
 // ---- Knapper og skjemaer ----
 function koble() {
   const $ = id => document.getElementById(id);
 
-  if ($("bilform")) $("bilform").onsubmit = e => {
+  if ($("bytt")) $("bytt").onclick = () => { state.modus = state.modus === "inn" ? "ny" : "inn"; tegn(); };
+
+  if ($("authform")) $("authform").onsubmit = async e => {
     e.preventDefault();
-    state.bil = {
+    const epost = $("epost").value.trim(), passord = $("passord").value;
+    if (state.modus === "ny") {
+      const { data, error } = await sb.auth.signUp({ email: epost, password: passord, options: { emailRedirectTo: location.origin } });
+      if (error) { feil(error.message); return tegn(); }
+      if (!data.session) { info("Konto opprettet. Sjekk e-posten din og trykk på bekreftelseslenken, og logg deretter inn her."); state.modus = "inn"; return tegn(); }
+      return start();
+    }
+    const { error } = await sb.auth.signInWithPassword({ email: epost, password: passord });
+    if (error) { feil("Kunne ikke logge inn. Sjekk e-post og passord, og at du har bekreftet e-posten din."); return tegn(); }
+    start();
+  };
+
+  if ($("loggut")) $("loggut").onclick = async () => { await sb.auth.signOut(); state.redigerer = false; start(); };
+
+  if ($("bilform")) $("bilform").onsubmit = async e => {
+    e.preventDefault();
+    const rad = {
+      user_id: state.user.id,
       merke: $("merke").value.trim(),
       modell: $("modell").value.trim(),
       aar: $("aar").value,
-      km: Number($("km").value)
+      km: Number($("km").value),
+      regnr: $("regnr").value.trim().toUpperCase() || null
     };
-    lagre(); tegn();
+    const { error } = await sb.from("bil").upsert(rad);
+    if (error) { feil("Kunne ikke lagre bilen. Prøv igjen."); return tegn(); }
+    state.redigerer = false;
+    start();
   };
+  if ($("avbryt")) $("avbryt").onclick = () => { state.redigerer = false; tegn(); };
+  if ($("endrebil")) $("endrebil").onclick = () => { state.redigerer = true; tegn(); };
 
-  if ($("kmform")) $("kmform").onsubmit = e => {
+  if ($("kmform")) $("kmform").onsubmit = async e => {
     e.preventDefault();
-    state.bil.km = Number($("nykm").value);
-    lagre(); tegn();
+    const { error } = await sb.from("bil").update({ km: Number($("nykm").value) }).eq("user_id", state.user.id);
+    if (error) feil("Kunne ikke oppdatere kilometerstanden.");
+    start();
   };
 
-  if ($("endrebil")) $("endrebil").onclick = () => {
-    if (confirm("Vil du bytte bil? Historikken beholdes.")) { state.bil = null; lagre(); tegn(); }
-  };
-
-  if ($("loggform")) $("loggform").onsubmit = e => {
+  if ($("loggform")) $("loggform").onsubmit = async e => {
     e.preventDefault();
     const km = $("lkm").value ? Number($("lkm").value) : 0;
-    state.logg.push({
-      id: Date.now(),
-      type: $("type").value,
-      dato: $("dato").value,
-      km: km,
-      notat: $("notat").value.trim()
+    const { error } = await sb.from("logg").insert({
+      type: $("type").value, dato: $("dato").value, km: km, notat: $("notat").value.trim() || null
     });
-    if (km > state.bil.km) state.bil.km = km;
-    lagre(); tegn();
+    if (error) { feil("Kunne ikke lagre oppføringen. Prøv igjen."); return tegn(); }
+    if (km > state.bil.km) await sb.from("bil").update({ km }).eq("user_id", state.user.id);
+    start();
   };
 
   document.querySelectorAll("[data-slett]").forEach(btn => {
-    btn.onclick = () => {
-      if (confirm("Slette denne oppføringen?")) {
-        state.logg = state.logg.filter(l => l.id !== Number(btn.dataset.slett));
-        lagre(); tegn();
-      }
+    btn.onclick = async () => {
+      if (!confirm("Slette denne oppføringen?")) return;
+      const { error } = await sb.from("logg").delete().eq("id", Number(btn.dataset.slett));
+      if (error) feil("Kunne ikke slette oppføringen.");
+      start();
     };
   });
 }
 
-last();
-tegn();
+start();
 </script>
 </body>
 </html>
